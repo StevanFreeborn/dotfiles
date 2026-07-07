@@ -1,0 +1,69 @@
+# ~/.zshrc — managed by chezmoi
+# Linux (Ubuntu/Debian) shell configuration — Oh My Zsh
+
+# --- Oh My Zsh ---
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="lavender-dimmed"
+
+plugins=(
+    git
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+    virtualenv
+)
+
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#b39cd0"
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE="20"
+ZSH_AUTOSUGGEST_USE_ASYNC=1
+
+[ -f "$ZSH/oh-my-zsh.sh" ] && source "$ZSH/oh-my-zsh.sh"
+
+# --- zoxide (smart cd) ---
+if command -v zoxide &>/dev/null; then
+    eval "$(zoxide init zsh)"
+    alias cd='z'
+fi
+
+# --- NVM ---
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"
+
+# --- envman ---
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+
+# --- History ---
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt HIST_IGNORE_DUPS
+setopt HIST_FIND_NO_DUPS
+setopt SHARE_HISTORY
+
+# --- Key bindings ---
+bindkey '^[[A' history-search-backward
+bindkey '^[[B' history-search-forward
+
+# --- Aliases ---
+alias grep='grep --color=auto'
+alias ls='ls --color=auto'
+alias ll='ls -lah'
+alias la='ls -A'
+alias l='ls -CF'
+alias catc='xclip -selection clipboard <'
+
+# Git aliases (mirrors PowerShell profile)
+alias acp='function _acp() { git add . && git commit -am "$1" && git push; }; _acp'
+alias acnvp='function _acnvp() { git add . && git commit --no-verify -am "$1" && git push; }; _acnvp'
+
+# Neovim
+alias nvimconfig='cd $HOME/.config/nvim'
+alias editnvim='cd $HOME/.config/nvim && nvim'
+
+# Utilities
+alias fromjson='python3 -m json.tool'
+
+# --- Python ---
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+export PYTHONIOENCODING="utf-8"
+

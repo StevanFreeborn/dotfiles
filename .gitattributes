@@ -1,0 +1,12 @@
+# Ensure shell scripts always use LF line endings
+*.sh text eol=lf
+*.sh.tmpl text eol=lf
+
+# PowerShell scripts use CRLF on Windows
+*.ps1 text eol=crlf
+*.ps1.tmpl text eol=crlf
+
+# JSON and TOML — platform native
+*.json text
+*.toml text
+*.tmpl text

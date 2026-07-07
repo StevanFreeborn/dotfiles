@@ -1,0 +1,68 @@
+#!/usr/bin/env pwsh
+# run_once_windows_setup-ssh-keys.ps1.tmpl
+# Pulls SSH private keys from Bitwarden and writes them to ~/.ssh/.
+#
+# Public keys (.pub files) are committed directly to the repo in dot_ssh/
+# and are applied automatically by chezmoi — no Bitwarden needed for those.
+#
+# Requires: bw (Bitwarden CLI) to be logged in and unlocked.
+# To unlock Bitwarden before running chezmoi:
+#   $env:BW_SESSION = bw unlock --raw
+#   chezmoi apply
+
+$ErrorActionPreference = "Stop"
+
+Write-Host "==> Setting up SSH keys from Bitwarden..." -ForegroundColor Cyan
+
+$SshDir = Join-Path $env:USERPROFILE ".ssh"
+New-Item -ItemType Directory -Force $SshDir | Out-Null
+
+function Write-Key($name, $bwItemName) {
+    $keyPath = Join-Path $SshDir $name
+
+    if (Test-Path $keyPath) {
+        Write-Host "  Key already exists: $name (skipping)" -ForegroundColor DarkGray
+        return
+    }
+
+    Write-Host "  Fetching key: $bwItemName -> $name" -NoNewline
+
+    try {
+        $content = bw get notes "$bwItemName" 2>&1
+        if ($LASTEXITCODE -ne 0) { throw $content }
+        [System.IO.File]::WriteAllText($keyPath, $content)
+        & icacls $keyPath /inheritance:r /grant "$env:USERNAME:(R,W)" /q 2>&1 | Out-Null
+        Write-Host "" -NoNewline
+        Write-Host "  Wrote: $keyPath" -ForegroundColor Green
+    } catch {
+        Write-Host "" -NoNewline
+        Write-Host "  WARNING: Could not fetch '$bwItemName' from Bitwarden. Skipping." -ForegroundColor Yellow
+        if (Test-Path $keyPath) { Remove-Item $keyPath -Force }
+    }
+}
+
+# --- Add your SSH keys below ---
+# Format: Write-Key "filename_in_~/.ssh" "Bitwarden secure note name"
+#
+# Example:
+#   Write-Key "stevan@freeborn.cloud" "SSH Key - stevan@freeborn.cloud"
+
+Write-Key "bit_bastion.key" "SSH Key - bit_bastion.key"
+Write-Key "stevan@freeborn.cloud" "SSH Key - stevan@freeborn.cloud"
+Write-Key "ftp_stevanfreeborn_com" "SSH Key - ftp_stevanfreeborn_com"
+Write-Key "tangled" "SSH Key - tangled"
+Write-Key "zenbook_tinker" "SSH Key - zenbook_tinker"
+Write-Key "gitea.freeborn.cloud" "SSH Key - gitea.freeborn.cloud"
+Write-Key "id_ed25519" "SSH Key - id_ed25519"
+Write-Key "macbookair" "SSH Key - macbookair"
+Write-Key "macbookpro" "SSH Key - macbookpro"
+Write-Key "truenas" "SSH Key - truenas"
+Write-Key "blog.stevanfreeborn.com_github_actions" "SSH Key - blog.stevanfreeborn.com_github_actions"
+Write-Key "commands_github_actions" "SSH Key - commands_github_actions"
+Write-Key "onspring_qa_playwright_reports_render" "SSH Key - onspring_qa_playwright_reports_render"
+Write-Key "onx_graph_github_actions" "SSH Key - onx_graph_github_actions"
+Write-Key "restapiplayground.stevanfreeborn.com_github_actions" "SSH Key - restapiplayground.stevanfreeborn.com_github_actions"
+Write-Key "steves_bot_github_actions" "SSH Key - steves_bot_github_actions"
+
+Write-Host "==> SSH key setup complete!" -ForegroundColor Cyan
+Write-Host "    NOTE: Store your SSH private keys as Bitwarden Secure Notes with the names listed above." -ForegroundColor Yellow

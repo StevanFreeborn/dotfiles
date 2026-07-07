@@ -1,0 +1,29 @@
+# Linux apt packages
+# These are installed via: sudo apt-get install -y $(cat linux.txt | grep -v '^#' | tr '\n' ' ')
+
+# Core utilities
+build-essential
+curl
+wget
+git
+jq
+unzip
+zip
+
+# Shell
+zsh
+xclip
+
+# Modern CLI tools (apt versions)
+fd-find
+ripgrep
+zoxide
+fzf
+
+# Development
+sqlite3
+make
+python3
+
+# Networking
+openssh-client

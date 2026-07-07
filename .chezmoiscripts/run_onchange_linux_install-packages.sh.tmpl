@@ -1,0 +1,213 @@
+#!/usr/bin/env bash
+# run_onchange_linux_install-packages.sh
+# Installs packages on Ubuntu/Debian via apt and manual installs for tools
+# not available (or outdated) in apt.
+# This script re-runs whenever packages/linux.txt changes.
+#
+# Hash of packages file (forces re-run on change):
+# {{ include "packages/linux.txt" | sha256sum }}
+
+set -euo pipefail
+
+# Ensure snap binaries are visible (chezmoi scripts may not inherit /snap/bin)
+[ -d "/snap/bin" ] && export PATH="$PATH:/snap/bin"
+
+CHEZMOI_SOURCE_DIR="{{ .chezmoi.sourceDir }}"
+
+echo "==> Updating apt package index..."
+sudo apt-get update -q
+
+echo "==> Installing apt packages..."
+apt_packages=$(grep -v '^#' "$CHEZMOI_SOURCE_DIR/packages/linux.txt" | grep -v '^$' | tr '\n' ' ')
+# shellcheck disable=SC2086
+sudo apt-get install -y $apt_packages
+
+# --- Tailscale ---
+if ! command -v tailscale &>/dev/null; then
+    echo "==> Installing Tailscale..."
+    curl -fsSL https://tailscale.com/install.sh | sh
+else
+    echo "==> Tailscale already installed"
+fi
+
+# --- Go ---
+GO_VERSION=$(curl -fsSL "https://go.dev/dl/?mode=json" | python3 -c "import sys,json; print(json.load(sys.stdin)[0]['version'].lstrip('go'))")
+if ! command -v go &>/dev/null || [[ "$(go version 2>/dev/null | awk '{print $3}' | tr -d 'go')" != "$GO_VERSION" ]]; then
+    echo "==> Installing Go $GO_VERSION..."
+    curl -fsSL "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" -o /tmp/go.tar.gz
+    sudo rm -rf /usr/local/go
+    sudo tar -C /usr/local -xzf /tmp/go.tar.gz
+    rm /tmp/go.tar.gz
+    echo "export PATH=\$PATH:/usr/local/go/bin" >> "$HOME/.zshenv"
+else
+    echo "==> Go already installed"
+fi
+
+# --- Rust ---
+if ! command -v rustup &>/dev/null; then
+    echo "==> Installing Rust via rustup..."
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
+    source "$HOME/.cargo/env"
+else
+    echo "==> Rust already installed"
+fi
+
+# --- NVM (Node Version Manager) ---
+if [ ! -d "$HOME/.nvm" ]; then
+    echo "==> Installing NVM..."
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+    export NVM_DIR="$HOME/.nvm"
+    # shellcheck disable=SC1091
+    [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
+    nvm install --lts
+else
+    echo "==> NVM already installed"
+fi
+
+# --- Oh My Zsh ---
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+    echo "==> Installing Oh My Zsh..."
+    RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+else
+    echo "==> Oh My Zsh already installed"
+fi
+
+# --- Oh My Zsh plugins ---
+ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
+
+if [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
+    echo "==> Installing zsh-autosuggestions..."
+    git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
+else
+    echo "==> zsh-autosuggestions already installed"
+fi
+
+if [ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ]; then
+    echo "==> Installing zsh-syntax-highlighting..."
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
+else
+    echo "==> zsh-syntax-highlighting already installed"
+fi
+
+# --- Neovim ---
+if ! command -v nvim &>/dev/null; then
+    echo "==> Installing Neovim (latest)..."
+    curl -fsSL https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz -o /tmp/nvim.tar.gz
+    sudo tar -C /opt -xzf /tmp/nvim.tar.gz
+    sudo ln -sf /opt/nvim-linux-x86_64/bin/nvim /usr/local/bin/nvim
+    rm /tmp/nvim.tar.gz
+else
+    echo "==> Neovim already installed"
+fi
+
+# --- lazygit ---
+if ! command -v lazygit &>/dev/null; then
+    echo "==> Installing lazygit..."
+    LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+    curl -fsSL "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz" -o /tmp/lazygit.tar.gz
+    sudo tar xf /tmp/lazygit.tar.gz lazygit -C /usr/local/bin
+    rm /tmp/lazygit.tar.gz
+else
+    echo "==> lazygit already installed"
+fi
+
+# --- watchexec ---
+if ! command -v watchexec &>/dev/null; then
+    echo "==> Installing watchexec..."
+    WE_VERSION=$(curl -s "https://api.github.com/repos/watchexec/watchexec/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+    curl -fsSL "https://github.com/watchexec/watchexec/releases/download/v${WE_VERSION}/watchexec-${WE_VERSION}-x86_64-unknown-linux-musl.tar.xz" -o /tmp/watchexec.tar.xz
+    tar -xJf /tmp/watchexec.tar.xz -C /tmp "watchexec-${WE_VERSION}-x86_64-unknown-linux-musl/watchexec"
+    sudo mv "/tmp/watchexec-${WE_VERSION}-x86_64-unknown-linux-musl/watchexec" /usr/local/bin/watchexec
+    rm -rf /tmp/watchexec.tar.xz "/tmp/watchexec-${WE_VERSION}-x86_64-unknown-linux-musl"
+else
+    echo "==> watchexec already installed"
+fi
+
+# --- bottom (btm) ---
+if ! command -v btm &>/dev/null; then
+    echo "==> Installing bottom (btm)..."
+    curl -fsSLO https://github.com/ClementTsang/bottom/releases/latest/download/bottom_x86_64-unknown-linux-musl.tar.gz
+    tar -xzf bottom_x86_64-unknown-linux-musl.tar.gz
+    sudo mv btm /usr/local/bin/
+    rm bottom_x86_64-unknown-linux-musl.tar.gz
+else
+    echo "==> bottom already installed"
+fi
+
+# --- Bitwarden CLI ---
+if ! command -v bw &>/dev/null; then
+    echo "==> Installing Bitwarden CLI..."
+    BW_VERSION=$(curl -s "https://api.github.com/repos/bitwarden/clients/releases" | grep -Po '"tag_name": "cli-v\K[^"]*' | head -1)
+    if [ -z "$BW_VERSION" ]; then
+        echo "WARNING: Could not determine Bitwarden CLI version, skipping install."
+    else
+        curl -fsSL "https://github.com/bitwarden/clients/releases/download/cli-v${BW_VERSION}/bw-linux-${BW_VERSION}.zip" -o /tmp/bw.zip
+        unzip -o /tmp/bw.zip -d /tmp/bw
+        sudo mv /tmp/bw/bw /usr/local/bin/bw
+        sudo chmod +x /usr/local/bin/bw
+        rm -rf /tmp/bw.zip /tmp/bw
+    fi
+else
+    echo "==> Bitwarden CLI already installed"
+fi
+
+# --- Doppler ---
+if ! command -v doppler &>/dev/null; then
+    echo "==> Installing Doppler..."
+    curl -Ls --tlsv1.2 --proto "=https" --retry 3 https://cli.doppler.com/install.sh | sudo sh
+else
+    echo "==> Doppler already installed"
+fi
+
+# --- GitHub CLI ---
+if ! command -v gh &>/dev/null; then
+    echo "==> Installing GitHub CLI..."
+    curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+    sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+    sudo apt-get update -q
+    sudo apt-get install gh -y
+else
+    echo "==> GitHub CLI already installed"
+fi
+
+# --- uv (Python package/project manager) ---
+if ! command -v uv &>/dev/null; then
+    echo "==> Installing uv..."
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+else
+    echo "==> uv already installed"
+fi
+
+# --- Docker ---
+if ! command -v docker &>/dev/null; then
+    echo "==> Installing Docker..."
+    curl -fsSL https://get.docker.com | sh
+    sudo usermod -aG docker "$USER"
+    echo "NOTE: Log out and back in for Docker group membership to take effect."
+else
+    echo "==> Docker already installed"
+fi
+
+# --- .NET SDK (8 + 10) ---
+# Uses Microsoft's official dotnet-install.sh script
+DOTNET_INSTALL_DIR="$HOME/.dotnet"
+DOTNET_SCRIPT=$(mktemp /tmp/dotnet-install-XXXXXX.sh)
+curl -fsSL https://dot.net/v1/dotnet-install.sh -o "$DOTNET_SCRIPT"
+chmod +x "$DOTNET_SCRIPT"
+
+for DOTNET_CHANNEL in "8.0" "10.0"; do
+    MAJOR="${DOTNET_CHANNEL%%.*}"
+    DOTNET_VERSION_INSTALLED=$(find "$DOTNET_INSTALL_DIR/sdk" -maxdepth 1 -name "${MAJOR}.*" 2>/dev/null | head -1 || echo "")
+    if [ -z "$DOTNET_VERSION_INSTALLED" ]; then
+        echo "==> Installing .NET SDK $DOTNET_CHANNEL..."
+        "$DOTNET_SCRIPT" --channel "$DOTNET_CHANNEL" --install-dir "$DOTNET_INSTALL_DIR"
+    else
+        echo "==> .NET SDK $DOTNET_CHANNEL already installed"
+    fi
+done
+
+rm -f "$DOTNET_SCRIPT"
+
+echo ""
+echo "==> Linux package installation complete!"

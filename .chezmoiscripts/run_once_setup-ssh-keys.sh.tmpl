@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+# run_once_setup-ssh-keys.sh.tmpl
+# Pulls SSH PRIVATE keys from Bitwarden and writes them to ~/.ssh/.
+#
+# Public keys (.pub files) are committed directly to the repo in dot_ssh/
+# and are applied automatically by chezmoi — no Bitwarden needed for those.
+#
+# Requires: bw (Bitwarden CLI) to be logged in and unlocked.
+# To unlock Bitwarden before running chezmoi:
+#   export BW_SESSION=$(bw unlock --raw)
+#   chezmoi apply
+
+set -euo pipefail
+
+echo "==> Setting up SSH keys from Bitwarden..."
+
+SSH_DIR="$HOME/.ssh"
+mkdir -p "$SSH_DIR"
+chmod 700 "$SSH_DIR"
+
+write_key() {
+    local name="$1"
+    local bw_item_name="$2"
+    local key_path="$SSH_DIR/$name"
+
+    if [ -f "$key_path" ]; then
+        echo "  Key already exists: $name (skipping)"
+        return
+    fi
+
+    echo "  Fetching key: $bw_item_name -> $name"
+    # bw get notes "Item Name" returns the secure note content
+    bw get notes "$bw_item_name" 2>/dev/null > "$key_path" || {
+        echo "  WARNING: Could not fetch '$bw_item_name' from Bitwarden. Skipping."
+        rm -f "$key_path"
+        return
+    }
+
+    if [ ! -s "$key_path" ]; then
+        echo "  WARNING: Key content was empty for '$bw_item_name'. Removing."
+        rm -f "$key_path"
+        return
+    fi
+
+    chmod 600 "$key_path"
+    echo "  Wrote: $key_path"
+}
+
+# --- Add your SSH keys below ---
+# Format: write_key "filename_in_~/.ssh" "Bitwarden secure note name"
+#
+# Example:
+#   write_key "stevan@freeborn.cloud" "SSH Key - stevan@freeborn.cloud"
+#   write_key "ftp_stevanfreeborn_com" "SSH Key - ftp_stevanfreeborn_com"
+#   write_key "tangled" "SSH Key - tangled"
+#   write_key "tinker" "SSH Key - tinker"
+#   write_key "gitea.freeborn.cloud" "SSH Key - gitea.freeborn.cloud"
+
+write_key "bit_bastion.key" "SSH Key - bit_bastion.key"
+write_key "stevan@freeborn.cloud" "SSH Key - stevan@freeborn.cloud"
+write_key "ftp_stevanfreeborn_com" "SSH Key - ftp_stevanfreeborn_com"
+write_key "tangled" "SSH Key - tangled"
+write_key "zenbook_tinker" "SSH Key - zenbook_tinker"
+write_key "gitea.freeborn.cloud" "SSH Key - gitea.freeborn.cloud"
+write_key "id_ed25519" "SSH Key - id_ed25519"
+write_key "macbookair" "SSH Key - macbookair"
+write_key "macbookpro" "SSH Key - macbookpro"
+write_key "truenas" "SSH Key - truenas"
+write_key "blog.stevanfreeborn.com_github_actions" "SSH Key - blog.stevanfreeborn.com_github_actions"
+write_key "commands_github_actions" "SSH Key - commands_github_actions"
+write_key "onspring_qa_playwright_reports_render" "SSH Key - onspring_qa_playwright_reports_render"
+write_key "onx_graph_github_actions" "SSH Key - onx_graph_github_actions"
+write_key "restapiplayground.stevanfreeborn.com_github_actions" "SSH Key - restapiplayground.stevanfreeborn.com_github_actions"
+write_key "steves_bot_github_actions" "SSH Key - steves_bot_github_actions"
+
+echo "==> SSH key setup complete!"
+echo "    NOTE: Store your SSH private keys as Bitwarden Secure Notes with the names listed above."

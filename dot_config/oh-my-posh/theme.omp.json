@@ -1,0 +1,118 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "blocks": [
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "properties": {
+            "cache_duration": "none"
+          },
+          "leading_diamond": "\u256d\u2500\ue0b6",
+          "template": " {{ .UserName }}@{{ .HostName }} ",
+          "foreground": "#1e222a",
+          "background": "#b39cd0",
+          "type": "session",
+          "style": "diamond"
+        },
+        {
+          "properties": {
+            "cache_duration": "none"
+          },
+          "template": " \uf0e7 ",
+          "foreground": "#1e222a",
+          "powerline_symbol": "\ue0b0",
+          "background": "#d4c87a",
+          "type": "root",
+          "style": "powerline"
+        },
+        {
+          "type": "command",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b0",
+          "foreground": "#e0e4e8",
+          "background_templates": [
+            "{{ if ne .Output \"-1\" }}#a088c0{{ else }}#3a3e46{{ end }}"
+          ],
+          "properties": {
+            "shell": "pwsh",
+            "command": "dotnet C:/Users/sfree/Repositories/viewer-count-fetcher/index.cs"
+          },
+          "cache": {
+            "duration": "30s",
+            "strategy": "session"
+          },
+          "template": " \udb81\uddc3{{ if ne .Output \"-1\" }} <f>{{ .Output }}</f> {{ else }} {{ end }}"
+        },
+        {
+          "properties": {
+            "cache_duration": "none",
+            "folder_icon": "\uf115",
+            "folder_separator_icon": " \ue0b1 ",
+            "home_icon": "\uf46d",
+            "max_depth": 0,
+            "style": "agnoster"
+          },
+          "template": " {{ .Path }} ",
+          "foreground": "#1e222a",
+          "powerline_symbol": "\ue0b0",
+          "background": "#b39cd0",
+          "type": "path",
+          "style": "powerline"
+        },
+        {
+          "properties": {
+            "cache_duration": "none"
+          },
+          "template": " {{ (abbrev 30 .HEAD) }} ",
+          "foreground": "#1e222a",
+          "powerline_symbol": "\ue0b0",
+          "background": "#7ec8c0",
+          "type": "git",
+          "style": "powerline"
+        },
+        {
+          "properties": {
+            "cache_duration": "none"
+          },
+          "template": " \ue235 {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }} {{ end }}{{ .Full }}{{ end }} ",
+          "foreground": "#1e222a",
+          "powerline_symbol": "\ue0b0",
+          "background": "#c8b8e0",
+          "type": "python",
+          "style": "powerline"
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "properties": {
+            "cache_duration": "none"
+          },
+          "template": "\u2570\u2500",
+          "foreground": "#b39cd0",
+          "type": "text",
+          "style": "plain"
+        },
+        {
+          "properties": {
+            "always_enabled": true,
+            "cache_duration": "none"
+          },
+          "template": "\ue285",
+          "foreground": "#7ec8c0",
+          "type": "exit",
+          "style": "plain",
+          "foreground_templates": ["{{ if gt .Code 0 }}#d47373{{ end }}"]
+        }
+      ],
+      "newline": true
+    }
+  ],
+  "version": 3,
+  "final_space": true
+}

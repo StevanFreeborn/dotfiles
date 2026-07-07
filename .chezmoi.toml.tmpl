@@ -1,0 +1,12 @@
+{{- $hostname := .chezmoi.hostname -}}
+{{- $email := promptStringOnce . "email" "Git email address" -}}
+{{- $name := promptStringOnce . "name" "Git full name" -}}
+
+[data]
+    hostname = {{ $hostname | quote }}
+    email = {{ $email | quote }}
+    name = {{ $name | quote }}
+{{ if ne .chezmoi.os "windows" -}}
+[diff]
+    pager = "less -FRX"
+{{ end -}}

@@ -1,0 +1,15 @@
+# ~/.zshenv — managed by chezmoi
+# Loaded for ALL zsh sessions (login, interactive, scripts).
+# Keep this minimal — only environment variable exports that must be available everywhere.
+
+# Go
+[ -d "/usr/local/go/bin" ] && export PATH="$PATH:/usr/local/go/bin"
+
+# Local bin
+export PATH="$HOME/.local/bin:$PATH"
+
+# Rust / cargo
+[ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
+
+# .NET
+[ -d "$HOME/.dotnet" ] && export DOTNET_ROOT="$HOME/.dotnet" && export PATH="$PATH:$HOME/.dotnet"

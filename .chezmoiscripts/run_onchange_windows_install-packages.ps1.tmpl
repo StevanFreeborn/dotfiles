@@ -1,0 +1,112 @@
+#!/usr/bin/env pwsh
+# run_onchange_windows_install-packages.ps1.tmpl
+# Installs all packages from packages/windows.json via winget.
+# This script re-runs whenever packages/windows.json changes.
+#
+# Hash of packages file (forces re-run on change):
+# {{ include "packages/windows.json" | sha256sum }}
+
+$ErrorActionPreference = "Continue"
+
+Write-Host "==> Installing packages via winget..." -ForegroundColor Cyan
+
+# Use the chezmoi source packages file directly
+$sourcePackages = "{{ .chezmoi.sourceDir }}/packages/windows.json"
+$sourcePackages = [System.IO.Path]::GetFullPath($sourcePackages)
+
+if (-not (Test-Path $sourcePackages)) {
+    Write-Warning "packages/windows.json not found at: $sourcePackages"
+    exit 1
+}
+
+$packageList = Get-Content $sourcePackages -Raw | ConvertFrom-Json
+$packages = $packageList.Sources[0].Packages
+
+$total = $packages.Count
+$installed = 0
+$skipped = 0
+$failed = 0
+
+foreach ($pkg in $packages) {
+    $id = $pkg.PackageIdentifier
+    Write-Host "  Checking $id..." -NoNewline
+
+    # Check if already installed
+    $check = winget list --id $id --exact --accept-source-agreements 2>$null | Select-String $id
+    if ($check) {
+        Write-Host " already installed" -ForegroundColor DarkGray
+        $skipped++
+        continue
+    }
+
+    # Install
+    Write-Host " installing..." -NoNewline
+    $result = winget install --id $id --exact --silent --accept-package-agreements --accept-source-agreements 2>&1
+    if ($LASTEXITCODE -eq 0) {
+        Write-Host " done" -ForegroundColor Green
+        $installed++
+    } else {
+        Write-Host " FAILED (exit $LASTEXITCODE)" -ForegroundColor Red
+        $failed++
+    }
+}
+
+Write-Host ""
+Write-Host "==> Package install complete: $installed installed, $skipped already present, $failed failed" -ForegroundColor Cyan
+
+# =============================================================================
+# Manual installs — tools not available on winget
+# =============================================================================
+
+$LocalBin = Join-Path $env:USERPROFILE ".local\bin"
+if (-not (Test-Path $LocalBin)) {
+    New-Item -ItemType Directory -Force $LocalBin | Out-Null
+}
+
+# Ensure ~/.local/bin is in the user PATH
+$userPath = [System.Environment]::GetEnvironmentVariable("PATH", "User")
+if ($userPath -notlike "*$LocalBin*") {
+    [System.Environment]::SetEnvironmentVariable("PATH", "$userPath;$LocalBin", "User")
+    $env:PATH = "$env:PATH;$LocalBin"
+    Write-Host "    Added $LocalBin to user PATH." -ForegroundColor Green
+}
+
+function Install-GitHubBinary {
+    param(
+        [string]$Name,
+        [string]$Repo,
+        [string]$AssetPattern,
+        [string]$BinaryName = "$Name.exe"
+    )
+
+    $BinPath = Join-Path $LocalBin $BinaryName
+    if (Test-Path $BinPath) {
+        Write-Host "  $Name already installed" -ForegroundColor DarkGray
+        return
+    }
+
+    Write-Host "  Installing $Name..." -NoNewline
+    try {
+        $release = Invoke-RestMethod "https://api.github.com/repos/$Repo/releases/latest"
+        $asset = $release.assets | Where-Object { $_.name -like $AssetPattern } | Select-Object -First 1
+        if (-not $asset) { throw "No matching asset found for pattern: $AssetPattern" }
+
+        $tmpZip = Join-Path $env:TEMP "$Name-$($release.tag_name).zip"
+        $tmpDir = Join-Path $env:TEMP "$Name-$($release.tag_name)"
+        Invoke-WebRequest -Uri $asset.browser_download_url -OutFile $tmpZip -UseBasicParsing
+        Expand-Archive -Path $tmpZip -DestinationPath $tmpDir -Force
+        $exe = Get-ChildItem -Recurse $tmpDir -Filter $BinaryName | Select-Object -First 1
+        Copy-Item $exe.FullName $BinPath
+        Remove-Item $tmpZip -Force
+        Remove-Item $tmpDir -Recurse -Force
+        Write-Host " done" -ForegroundColor Green
+    } catch {
+        Write-Host " FAILED: $_" -ForegroundColor Red
+    }
+}
+
+Write-Host ""
+Write-Host "==> Installing manual (non-winget) packages..." -ForegroundColor Cyan
+
+# watchexec — https://github.com/watchexec/watchexec
+Install-GitHubBinary -Name "watchexec" -Repo "watchexec/watchexec" -AssetPattern "*x86_64-pc-windows-msvc.zip"

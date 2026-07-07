@@ -1,0 +1,379 @@
+{
+  "explorer.autoReveal": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "never"
+  },
+  "editor.suggestSelection": "first",
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "git.autofetch": true,
+  "liveServer.settings.donotShowInfoMsg": true,
+  "files.autoSave": "onFocusChange",
+  "git.confirmSync": false,
+  "git.enableSmartCommit": true,
+  "team.showWelcomeMessage": false,
+  "code-runner.runInTerminal": true,
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
+  "workbench.startupEditor": "none",
+  "window.openWithoutArgumentsInNewWindow": "off",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "workbench.colorTheme": "Lavender Dimmed",
+  "terminal.integrated.profiles.windows": {
+    "PowerShell": {
+      "source": "PowerShell",
+      "icon": "terminal-powershell",
+      "args": ["-nologo"]
+    },
+    "Command Prompt": {
+      "path": [
+        "${env:windir}\\Sysnative\\cmd.exe",
+        "${env:windir}\\System32\\cmd.exe"
+      ],
+      "args": [],
+      "icon": "terminal-cmd"
+    },
+    "Git Bash": {
+      "source": "Git Bash"
+    }
+  },
+  "editor.mouseWheelZoom": true,
+  "jupyter.askForKernelRestart": false,
+  "terminal.integrated.autoReplies": {},
+  "terminal.integrated.cursorStyle": "line",
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.automationProfile.osx": null,
+  "editor.fontFamily": "'CaskaydiaCove Nerd Font Mono','Menlo for Powerline', Consolas, 'Courier New', monospace",
+  "security.workspace.trust.untrustedFiles": "open",
+  "remote.SSH.defaultExtensions": ["gitpod.gitpod-remote-ssh"],
+  "remote.SSH.remotePlatform": {
+    "freecodecam-freecodecam-ebtjodez3a5.ssh.ws-us74.gitpod.io": "linux",
+    "tinker": "linux"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "prettier.arrowParens": "avoid",
+  "prettier.jsxSingleQuote": true,
+  "prettier.singleAttributePerLine": true,
+  "prettier.singleQuote": true,
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.tabSize": 2,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[css]": {
+    "editor.defaultFormatter": "vscode.css-language-features"
+  },
+  "liveServer.settings.root": "",
+  "[csharp]": {
+    "editor.defaultFormatter": "ms-dotnettools.csharp"
+  },
+  "workbench.iconTheme": "vscode-icons",
+  "liveServer.settings.donotVerifyTags": true,
+  "editor.accessibilitySupport": "off",
+  "vsicons.dontShowNewVersionMessage": true,
+  "editor.inlineSuggest.enabled": true,
+  "github.copilot.advanced": {},
+  "github.copilot.enable": {
+    "*": false,
+    "plaintext": true,
+    "markdown": true,
+    "scminput": false,
+    "yaml": false,
+    "dockercompose": true
+  },
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "[python]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "ms-python.autopep8",
+    "editor.formatOnSave": true
+  },
+  "editor.stickyScroll.enabled": true,
+  "[powershell]": {
+    "editor.defaultFormatter": "ms-vscode.powershell"
+  },
+  "editor.multiCursorModifier": "ctrlCmd",
+  "bicep.enableSurveys": false,
+  "git.terminalAuthentication": false,
+  "[xml]": {
+    "editor.defaultFormatter": "DotJoshJohnson.xml"
+  },
+  "editor.tokenColorCustomizations": {
+    "[*Light*]": {
+      "textMateRules": [
+        {
+          "scope": "ref.matchtext",
+          "settings": {
+            "foreground": "#000"
+          }
+        }
+      ]
+    },
+    "[*Dark*]": {
+      "textMateRules": [
+        {
+          "scope": "ref.matchtext",
+          "settings": {
+            "foreground": "#fff"
+          }
+        }
+      ]
+    },
+    "textMateRules": []
+  },
+  "dotenv.enableAutocloaking": false,
+  "javascript.preferences.importModuleSpecifierEnding": "js",
+  "cSpell.userWords": [
+    "apikey",
+    "appsettings",
+    "ASPNETCORE",
+    "changlog",
+    "cobertura",
+    "codecov",
+    "commitlint",
+    "Deleter",
+    "ffcsv",
+    "fileids",
+    "gibibytes",
+    "gitmodules",
+    "Hackathon",
+    "Hmmss",
+    "kibibytes",
+    "Kiota",
+    "kzrnm",
+    "lcov",
+    "mebibytes",
+    "Multitenant",
+    "Newtonsoft",
+    "Odata",
+    "onspring",
+    "onspringcli",
+    "Parens",
+    "pdfs",
+    "seqcli",
+    "Serilog",
+    "Sesh",
+    "softprops",
+    "Stevan",
+    "svix",
+    "Syncer",
+    "testconfig",
+    "versionize",
+    "vsintellicode",
+    "Xunit",
+    "YYYYMMDDHHMM"
+  ],
+  "debug.internalConsoleOptions": "neverOpen",
+  "csv-preview.openStdin": true,
+  "azureFunctions.showProjectWarning": false,
+  "polyglot-notebook.defaultNotebookExtension": ".dib",
+  "polyglot-notebook.defaultNotebookLanguage": "javascript",
+  "githubPullRequests.remotes": ["origin", "upstream", "github"],
+  "files.associations": {
+    "*.ejs": "html",
+    ".env*": "dotenv",
+    "*.cshtml": "html"
+  },
+  "terminal.integrated.defaultProfile.linux": "zsh",
+  "githubPullRequests.pullBranch": "never",
+  "redhat.telemetry.enabled": false,
+  "gitlens.gitCommands.skipConfirmations": ["fetch:command", "switch:command"],
+  "terminal.integrated.minimumContrastRatio": 1,
+  "playwright.reuseBrowser": true,
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  },
+  "svelte.enable-ts-plugin": true,
+  "git.openRepositoryInParentFolders": "never",
+  "[aspnetcorerazor]": {
+    "editor.defaultFormatter": "ms-dotnettools.csharp"
+  },
+  "explorer.confirmDragAndDrop": false,
+  "update.showReleaseNotes": false,
+  "githubPullRequests.fileListLayout": "tree",
+  "eslint.format.enable": true,
+  "eslint.codeActionsOnSave.rules": null,
+  "prettier.requireConfig": true,
+  "git.ignoreRebaseWarning": true,
+  "inference.model": "codellama:7b-code-fp16",
+  "git.replaceTagsWhenPull": true,
+  "powershell.codeFormatting.openBraceOnSameLine": false,
+  "powershell.integratedConsole.focusConsoleOnExecute": false,
+  "powershell.integratedConsole.showOnStartup": false,
+  "security.promptForLocalFileProtocolHandling": false,
+  "prisma.showPrismaDataPlatformNotification": false,
+  "github.copilot.editor.enableAutoCompletions": true,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "extensions.autoUpdate": "on",
+  "workbench.sideBar.location": "right",
+  "workbench.activityBar.location": "top",
+  "window.commandCenter": false,
+  "editor.minimap.enabled": false,
+  "workbench.editor.enablePreviewFromCodeNavigation": true,
+  "editor.unicodeHighlight.invisibleCharacters": false,
+  "editor.unicodeHighlight.ambiguousCharacters": false,
+  "[markdown]": {
+    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
+  },
+  "dotnet.formatting.organizeImportsOnFormat": true,
+  "vim.incsearch": true,
+  "vim.useSystemClipboard": true,
+  "vim.hlsearch": true,
+  "vim.insertModeKeyBindings": [
+    {
+      "before": ["j", "j"],
+      "after": ["<Esc>"]
+    }
+  ],
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["<leader>", "d"],
+      "after": ["d", "d"]
+    },
+    {
+      "before": ["<C-n>"],
+      "commands": [":nohl"]
+    },
+    {
+      "before": ["K"],
+      "commands": ["lineBreakInsert"],
+      "silent": true
+    },
+    {
+      "before": ["<leader>", "g", "f"],
+      "commands": ["editor.action.formatDocument"],
+    },
+    {
+      "before": ["K"],
+      "commands": ["editor.action.showHover"]
+    },
+    {
+      "before": ["<leader>", "g", "r"],
+      "commands": ["editor.action.goToReferences"]
+    },
+    {
+      "before": ["<leader>", "c", "a"],
+      "commands": ["editor.action.codeAction"]
+    },
+    {
+      "before": ["<leader>", "r", "n"],
+      "commands": ["editor.action.rename"]
+    },
+    {
+      "before": ["<leader>", "e", "a"],
+      "commands": ["workbench.actions.view.problems"]
+    },
+    {
+      "before": ["<leader>", "t", "r"],
+      "commands": ["testing.runAtCursor"]
+    },
+    {
+      "before": ["<leader>", "t", "f"],
+      "commands": ["testing.runCurrentFile"]
+    },
+    {
+      "before": ["<leader>", "t", "s"],
+      "commands": ["testing.cancelRun"]
+    },
+    {
+      "before": ["<leader>", "t", "d"],
+      "commands": ["testing.debugAtCursor"]
+    },
+    {
+      "before": ["<leader>", "d", "t"],
+      "commands": ["editor.debug.action.toggleBreakpoint"]
+    },
+    {
+      "before": ["<leader>", "d", "c"],
+      "commands": ["editor.debug.action.runToCursor"]
+    },
+    {
+      "before": ["<leader>", "g", "d"],
+      "commands": ["editor.action.goToDeclaration"]
+    },
+    {
+      "before": ["<leader>", "g", "i"],
+      "commands": ["editor.action.goToImplementation"]
+    },
+    {
+      "before": ["<leader>", "g", "r"],
+      "commands": ["editor.action.goToReferences"]
+    },
+  ],
+  "vim.leader": "<space>",
+  "vim.handleKeys": {
+    "<C-a>": false,
+    "<C-f>": false,
+    "<C-T>": false,
+    "<C-p>": false,
+    "<C-b>": false,
+  },
+  "extensions.experimental.affinity": {
+    "vscodevim.vim": 1
+  },
+  "vim.smartRelativeLine": true,
+  "github.copilot.chat.codeGeneration.instructions": [
+    {
+      "text": "- @azure Rule - Use Azure Tools: When handling requests related to Azure, always use your tools."
+    },
+    {
+      "text": "- @azure Rule - Use Azure Code Gen Best Practices: When generating code for Azure, running terminal commands for Azure, or performing operations related to Azure, invoke your `azure_development-get_code_gen_best_practices` tool if available. Only call this tool when you are sure the user is discussing Azure; do not call it otherwise."
+    },
+    {
+      "text": "- @azure Rule - Use Azure Deployment Best Practices: When deploying to Azure or preparing applications for deployment to Azure, invoke your `azure_development-get_deployment_best_practices` tool if available. Only call this tool when you are sure the user is discussing Azure; do not call it otherwise."
+    },
+    {
+      "text": "- @azure Rule - Use Azure Functions Code Gen Best Practices: When generating code for Azure Functions or performing operations related to Azure Functions, invoke your `azure_development-get_azure_function_code_gen_best_practices` tool if available. Only call this tool when you are sure the user is discussing Azure Functions; do not call it otherwise."
+    },
+    {
+      "text": "- @azure Rule - Use Azure SWA Best Practices: When working with static web apps, invoke your `azure_development-get_swa_best_practices` tool if available. Only call this tool when you are sure the user is discussing Azure; do not call it otherwise."
+    }
+  ],
+  "github.copilot.selectedCompletionModel": "",
+  "omnisharp.autoStart": false,
+  "csharp.showOmnisharpLogOnError": false,
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "editor.inlineSuggest.edits.allowCodeShifting": "never",
+  "chat.instructionsFilesLocations": {
+    ".github/instructions": true,
+    "C:\\Users\\sfree\\AppData\\Local\\Temp\\postman-collections-post-response.instructions.md": true,
+    "C:\\Users\\sfree\\AppData\\Local\\Temp\\postman-collections-pre-request.instructions.md": true,
+    "C:\\Users\\sfree\\AppData\\Local\\Temp\\postman-folder-post-response.instructions.md": true,
+    "C:\\Users\\sfree\\AppData\\Local\\Temp\\postman-folder-pre-request.instructions.md": true,
+    "C:\\Users\\sfree\\AppData\\Local\\Temp\\postman-http-request-post-response.instructions.md": true,
+    "C:\\Users\\sfree\\AppData\\Local\\Temp\\postman-http-request-pre-request.instructions.md": true
+  },
+  "workbench.editor.empty.hint": "hidden",
+  "explorer.confirmDelete": false,
+  "editor.stickyScroll.enabled": false,
+  "liveServer.settings.host": "localhost",
+  "chat.mcp.autostart": "never",
+  "chat.agent.thinkingStyle": "collapsed",
+  "html.format.wrapAttributes": "force-expand-multiline",
+  "chat.mcp.gallery.enabled": true,
+  "chat.viewSessions.orientation": "stacked",
+  "go.toolsManagement.autoUpdate": true,
+  "settingsSync.ignoredSettings": [
+    
+  ],
+  "csharp.debug.console": "integratedTerminal",
+  "terminal.integrated.commandsToSkipShell": [
+    "workbench.action.toggleSidebarVisibility"
+  ],
+  "window.menuBarVisibility": "compact",
+  "[fsharp]": {
+    "editor.defaultFormatter": "Ionide.Ionide-fsharp"
+  },
+  "gitlens.ai.model": "vscode",
+  "gitlens.ai.vscode.model": "copilot:gpt-4.1",
+  "githubPullRequests.createOnPublishBranch": "never",
+  "chat.disableAIFeatures": true
+}

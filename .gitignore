@@ -1,0 +1,2 @@
+# Don't commit local chezmoi state files
+*.age

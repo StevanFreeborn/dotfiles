@@ -1,0 +1,36 @@
+Host bit_bastion
+     HostName           	ssh.steva.nz
+     User               	stevan
+     IdentityFile       	~/.ssh/stevan@freeborn.cloud
+
+Host ftp.stevanfreeborn.com
+     HostName           	ftp.stevanfreeborn.com
+     User               	u74298126
+     IdentityFile       	~/.ssh/ftp_stevanfreeborn_com
+
+Host tangled.org
+     Hostname          		tangled.org
+     User git
+     IdentityFile      		~/.ssh/tangled
+     AddressFamily     		inet
+
+Host macbookair
+     HostName          		ssh.macbookair.freeborn.cloud
+     User              		stevan
+     IdentityFile      		~/.ssh/macbookair
+
+Host macbookpro
+     HostName          		ssh.macbookpro.freeborn.cloud
+     User              		stevan
+     IdentityFile      		~/.ssh/macbookpro
+
+Host tinker
+     HostName 	       		ssh.freeborn.cloud
+     User     	       		stevan
+     IdentityFile      		~/.ssh/zenbook_tinker
+
+Host gitea.freeborn.cloud
+     HostName          		ssh.freeborn.cloud
+     User              		git
+     Port              		2222
+     IdentityFile      		~/.ssh/gitea.freeborn.cloud
