@@ -27,6 +27,10 @@
                 "splitMode": "duplicate"
             },
             "id": "User.splitPane.A6751878"
+        },
+        { 
+            "command": "toggleFocusMode", 
+            "id": "Terminal.ToggleFocusMode" 
         }
     ],
     "copyFormatting": "none",
@@ -49,6 +53,10 @@
         {
             "id": "User.splitPane.A6751878",
             "keys": "alt+shift+d"
+        },
+        {
+            "id": "Terminal.ToggleFocusMode",
+            "keys": "alt+z"
         }
     ],
     "newTabMenu": 
