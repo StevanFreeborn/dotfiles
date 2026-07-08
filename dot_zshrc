@@ -57,6 +57,7 @@ alias acp='function _acp() { git add . && git commit -am "$1" && git push; }; _a
 alias acnvp='function _acnvp() { git add . && git commit --no-verify -am "$1" && git push; }; _acnvp'
 
 # Neovim
+export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 alias nvimconfig='cd $HOME/.config/nvim'
 alias editnvim='cd $HOME/.config/nvim && nvim'
 
