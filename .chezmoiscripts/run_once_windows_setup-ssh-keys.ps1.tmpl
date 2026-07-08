@@ -17,6 +17,29 @@ Write-Host "==> Setting up SSH keys from Bitwarden..." -ForegroundColor Cyan
 $SshDir = Join-Path $env:USERPROFILE ".ssh"
 New-Item -ItemType Directory -Force $SshDir | Out-Null
 
+# Verify Bitwarden is unlocked before fetching keys
+Write-Host "  Checking Bitwarden vault status... " -NoNewline
+$bwStatus = (bw status 2>&1 | ConvertFrom-Json).status
+if ($bwStatus -ne "unlocked") {
+    Write-Host "locked" -ForegroundColor Yellow
+    if ($env:BW_SESSION) {
+        Write-Host "  Session locked — unlocking with BW_SESSION..." -ForegroundColor Yellow
+        $env:BW_SESSION = bw unlock --raw 2>&1
+        $bwStatus = (bw status 2>&1 | ConvertFrom-Json).status
+    }
+    if ($bwStatus -ne "unlocked") {
+        Write-Host "  WARNING: Bitwarden vault is not unlocked. Skipping SSH key setup." -ForegroundColor Yellow
+        Write-Host "  Run: `$env:BW_SESSION = bw unlock --raw; chezmoi apply"
+        exit 0
+    }
+} else {
+    Write-Host "unlocked" -ForegroundColor Green
+}
+
+# Pre-sync to avoid sequential sync delays per key fetch
+Write-Host "  Syncing vault..."
+bw sync 2>&1 | Out-Null
+
 function Write-Key($name, $bwItemName) {
     $keyPath = Join-Path $SshDir $name
 
@@ -28,7 +51,7 @@ function Write-Key($name, $bwItemName) {
     Write-Host "  Fetching key: $bwItemName -> $name" -NoNewline
 
     try {
-        $content = bw get notes "$bwItemName" 2>&1
+        $content = bw get notes --session $env:BW_SESSION "$bwItemName" 2>&1
         if ($LASTEXITCODE -ne 0) { throw $content }
         [System.IO.File]::WriteAllText($keyPath, $content)
         & icacls $keyPath /inheritance:r /grant "$env:USERNAME:(R,W)" /q 2>&1 | Out-Null

@@ -18,6 +18,29 @@ SSH_DIR="$HOME/.ssh"
 mkdir -p "$SSH_DIR"
 chmod 700 "$SSH_DIR"
 
+# Verify Bitwarden is unlocked before fetching keys
+echo "  Checking Bitwarden vault status..."
+BW_STATUS=$(bw status 2>/dev/null | python3 -c "import sys,json; print(json.load(sys.stdin).get('status','unauthenticated'))" 2>/dev/null || echo "unauthenticated")
+
+if [ "$BW_STATUS" != "unlocked" ]; then
+    if [ -n "${BW_SESSION:-}" ]; then
+        echo "  Session locked — unlocking with BW_SESSION..."
+        export BW_SESSION
+        BW_SESSION=$(bw unlock --raw 2>/dev/null)
+        BW_STATUS=$(bw status 2>/dev/null | python3 -c "import sys,json; print(json.load(sys.stdin).get('status','unauthenticated'))" 2>/dev/null || echo "unauthenticated")
+    fi
+
+    if [ "$BW_STATUS" != "unlocked" ]; then
+        echo "  WARNING: Bitwarden vault is not unlocked. Skipping SSH key setup."
+        echo "  Run: export BW_SESSION=\$(bw unlock --raw) && chezmoi apply"
+        exit 0
+    fi
+fi
+
+# Pre-sync to avoid sequential sync delays per key fetch
+echo "  Syncing vault..."
+bw sync 2>/dev/null || true
+
 write_key() {
     local name="$1"
     local bw_item_name="$2"
@@ -29,8 +52,7 @@ write_key() {
     fi
 
     echo "  Fetching key: $bw_item_name -> $name"
-    # bw get notes "Item Name" returns the secure note content
-    bw get notes "$bw_item_name" 2>/dev/null > "$key_path" || {
+    bw get notes --session "$BW_SESSION" "$bw_item_name" 2>/dev/null > "$key_path" || {
         echo "  WARNING: Could not fetch '$bw_item_name' from Bitwarden. Skipping."
         rm -f "$key_path"
         return
