@@ -48,7 +48,7 @@ else
     fi
 
     step "Downloading Bitwarden CLI binary..."
-    BW_VERSION=$(curl -fsLS "https://api.github.com/repos/bitwarden/clients/releases/latest" \
+    BW_VERSION=$(curl -fsLS "https://api.github.com/repos/bitwarden/clients/releases?per_page=20" \
         | grep '"tag_name"' | grep cli | head -1 | sed 's/.*"cli-v\([^"]*\)".*/\1/' || echo "")
     if [ -z "$BW_VERSION" ]; then
         err "Could not determine latest Bitwarden CLI version. Install bw manually and re-run."
