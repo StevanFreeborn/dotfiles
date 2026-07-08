@@ -75,7 +75,7 @@
             {
                 "bellStyle": "none",
                 "colorScheme": "One Half Dark",
-                "commandline": "\"C:\\Program Files\\PowerShell\\7\\pwsh.exe\" -NoLogo",
+                "commandline": "\"C:\\Users\\sfree\\AppData\\Local\\Microsoft\\WindowsApps\\pwsh.exe\" -NoLogo",
                 "cursorShape": "filledBox",
                 "font": 
                 {
@@ -104,11 +104,6 @@
                 "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
                 "hidden": false,
                 "name": "Command Prompt"
-            },
-            {
-                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
-                "hidden": false,
-                "name": "Windows PowerShell"
             }
         ]
     },
