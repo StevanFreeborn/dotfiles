@@ -7,7 +7,7 @@
 # Public keys (.pub files) and non-key files (config, known_hosts) are skipped.
 #
 # Requires:
-#   - Bitwarden CLI (bw) — install via: sudo snap install bw
+#   - Bitwarden CLI (bw) — install via the bootstrap script or download the Linux binary from GitHub
 #   - jq               — install via: sudo apt install jq
 #   - BW_SESSION environment variable set
 #
@@ -33,7 +33,7 @@ done
 # --- Preflight checks ---
 
 if ! command -v bw &>/dev/null; then
-    echo "Bitwarden CLI (bw) not found. Install it with: sudo snap install bw" >&2
+    echo "Bitwarden CLI (bw) not found. Run the bootstrap script or download the Linux binary from GitHub." >&2
     exit 1
 fi
 

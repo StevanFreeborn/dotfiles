@@ -37,34 +37,29 @@ else
 fi
 
 # --- Install Bitwarden CLI ---
-# Ensure /snap/bin is in PATH — snap binaries aren't visible in the current
-# shell session without this when running via bash <(curl ...)
-command -v snap &>/dev/null && export PATH="$PATH:/snap/bin"
-
 step "Checking Bitwarden CLI..."
-if command -v bw &>/dev/null; then
-    skip "bw already installed ($(bw --version))."
+if BW_VERSION=$(bw --version 2>/dev/null); then
+    skip "bw already installed ($BW_VERSION)."
 else
-    if command -v snap &>/dev/null; then
-        step "Installing Bitwarden CLI via snap..."
-        sudo snap install bw
-        ok "bw installed via snap."
-    else
-        # Fallback: download the official Linux binary from GitHub releases
-        step "snap not available; downloading Bitwarden CLI binary..."
-        BW_VERSION=$(curl -fsLS "https://api.github.com/repos/bitwarden/clients/releases/latest" \
-            | grep '"tag_name"' | grep cli | head -1 | sed 's/.*"cli-v\([^"]*\)".*/\1/' || echo "")
-        if [ -z "$BW_VERSION" ]; then
-            err "Could not determine latest Bitwarden CLI version. Install bw manually and re-run."
-        fi
-        TMP_ZIP=$(mktemp /tmp/bw-XXXXXX.zip)
-        curl -fsLS "https://github.com/bitwarden/clients/releases/download/cli-v${BW_VERSION}/bw-linux-${BW_VERSION}.zip" \
-            -o "$TMP_ZIP"
-        sudo unzip -o "$TMP_ZIP" -d /usr/local/bin/ bw
-        sudo chmod +x /usr/local/bin/bw
-        rm -f "$TMP_ZIP"
-        ok "bw ${BW_VERSION} installed to /usr/local/bin/bw."
+    # Remove broken snap installation if present
+    if command -v snap &>/dev/null && snap list bw &>/dev/null 2>&1; then
+        echo "    Removing broken snap installation..."
+        sudo snap remove bw
     fi
+
+    step "Downloading Bitwarden CLI binary..."
+    BW_VERSION=$(curl -fsLS "https://api.github.com/repos/bitwarden/clients/releases/latest" \
+        | grep '"tag_name"' | grep cli | head -1 | sed 's/.*"cli-v\([^"]*\)".*/\1/' || echo "")
+    if [ -z "$BW_VERSION" ]; then
+        err "Could not determine latest Bitwarden CLI version. Install bw manually and re-run."
+    fi
+    TMP_ZIP=$(mktemp /tmp/bw-XXXXXX.zip)
+    curl -fsLS "https://github.com/bitwarden/clients/releases/download/cli-v${BW_VERSION}/bw-linux-${BW_VERSION}.zip" \
+        -o "$TMP_ZIP"
+    sudo unzip -o "$TMP_ZIP" -d /usr/local/bin/ bw
+    sudo chmod +x /usr/local/bin/bw
+    rm -f "$TMP_ZIP"
+    ok "bw ${BW_VERSION} installed to /usr/local/bin/bw."
 fi
 
 # --- Install chezmoi ---
