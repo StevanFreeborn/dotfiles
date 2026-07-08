@@ -9,13 +9,10 @@
 
 set -euo pipefail
 
-# Ensure snap binaries are visible (chezmoi scripts may not inherit /snap/bin)
-[ -d "/snap/bin" ] && export PATH="$PATH:/snap/bin"
-
 CHEZMOI_SOURCE_DIR="{{ .chezmoi.sourceDir }}"
 
 echo "==> Updating apt package index..."
-sudo apt-get update -q
+sudo apt-get update -q || echo "Warning: apt update had non-critical errors"
 
 echo "==> Installing apt packages..."
 apt_packages=$(grep -v '^#' "$CHEZMOI_SOURCE_DIR/packages/linux.txt" | grep -v '^$' | tr '\n' ' ')
