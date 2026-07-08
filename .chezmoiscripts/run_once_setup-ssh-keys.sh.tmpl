@@ -46,32 +46,12 @@ write_key() {
     echo "  Wrote: $key_path"
 }
 
-# --- Add your SSH keys below ---
-# Format: write_key "filename_in_~/.ssh" "Bitwarden secure note name"
-#
-# Example:
-#   write_key "stevan@freeborn.cloud" "SSH Key - stevan@freeborn.cloud"
-#   write_key "ftp_stevanfreeborn_com" "SSH Key - ftp_stevanfreeborn_com"
-#   write_key "tangled" "SSH Key - tangled"
-#   write_key "tinker" "SSH Key - tinker"
-#   write_key "gitea.freeborn.cloud" "SSH Key - gitea.freeborn.cloud"
-
-write_key "bit_bastion.key" "SSH Key - bit_bastion.key"
-write_key "stevan@freeborn.cloud" "SSH Key - stevan@freeborn.cloud"
-write_key "ftp_stevanfreeborn_com" "SSH Key - ftp_stevanfreeborn_com"
-write_key "tangled" "SSH Key - tangled"
-write_key "zenbook_tinker" "SSH Key - zenbook_tinker"
-write_key "gitea.freeborn.cloud" "SSH Key - gitea.freeborn.cloud"
-write_key "id_ed25519" "SSH Key - id_ed25519"
-write_key "macbookair" "SSH Key - macbookair"
-write_key "macbookpro" "SSH Key - macbookpro"
-write_key "truenas" "SSH Key - truenas"
-write_key "blog.stevanfreeborn.com_github_actions" "SSH Key - blog.stevanfreeborn.com_github_actions"
-write_key "commands_github_actions" "SSH Key - commands_github_actions"
-write_key "onspring_qa_playwright_reports_render" "SSH Key - onspring_qa_playwright_reports_render"
-write_key "onx_graph_github_actions" "SSH Key - onx_graph_github_actions"
-write_key "restapiplayground.stevanfreeborn.com_github_actions" "SSH Key - restapiplayground.stevanfreeborn.com_github_actions"
-write_key "steves_bot_github_actions" "SSH Key - steves_bot_github_actions"
+# Derive private key names from the public key files in dot_ssh/
+CHEZMOI_SOURCE_DIR="{{ .chezmoi.sourceDir }}"
+for pub_file in "$CHEZMOI_SOURCE_DIR/dot_ssh"/*.pub; do
+    [ -f "$pub_file" ] || continue
+    key_name=$(basename "$pub_file" .pub)
+    write_key "$key_name" "SSH Key - $key_name"
+done
 
 echo "==> SSH key setup complete!"
-echo "    NOTE: Store your SSH private keys as Bitwarden Secure Notes with the names listed above."

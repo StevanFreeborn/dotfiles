@@ -41,28 +41,11 @@ function Write-Key($name, $bwItemName) {
     }
 }
 
-# --- Add your SSH keys below ---
-# Format: Write-Key "filename_in_~/.ssh" "Bitwarden secure note name"
-#
-# Example:
-#   Write-Key "stevan@freeborn.cloud" "SSH Key - stevan@freeborn.cloud"
-
-Write-Key "bit_bastion.key" "SSH Key - bit_bastion.key"
-Write-Key "stevan@freeborn.cloud" "SSH Key - stevan@freeborn.cloud"
-Write-Key "ftp_stevanfreeborn_com" "SSH Key - ftp_stevanfreeborn_com"
-Write-Key "tangled" "SSH Key - tangled"
-Write-Key "zenbook_tinker" "SSH Key - zenbook_tinker"
-Write-Key "gitea.freeborn.cloud" "SSH Key - gitea.freeborn.cloud"
-Write-Key "id_ed25519" "SSH Key - id_ed25519"
-Write-Key "macbookair" "SSH Key - macbookair"
-Write-Key "macbookpro" "SSH Key - macbookpro"
-Write-Key "truenas" "SSH Key - truenas"
-Write-Key "blog.stevanfreeborn.com_github_actions" "SSH Key - blog.stevanfreeborn.com_github_actions"
-Write-Key "commands_github_actions" "SSH Key - commands_github_actions"
-Write-Key "onspring_qa_playwright_reports_render" "SSH Key - onspring_qa_playwright_reports_render"
-Write-Key "onx_graph_github_actions" "SSH Key - onx_graph_github_actions"
-Write-Key "restapiplayground.stevanfreeborn.com_github_actions" "SSH Key - restapiplayground.stevanfreeborn.com_github_actions"
-Write-Key "steves_bot_github_actions" "SSH Key - steves_bot_github_actions"
+# Derive private key names from the public key files in dot_ssh/
+$chezmoiSourceDir = "{{ .chezmoi.sourceDir }}"
+Get-ChildItem "$chezmoiSourceDir\dot_ssh\*.pub" | ForEach-Object {
+    $keyName = $_.BaseName
+    Write-Key $keyName "SSH Key - $keyName"
+}
 
 Write-Host "==> SSH key setup complete!" -ForegroundColor Cyan
-Write-Host "    NOTE: Store your SSH private keys as Bitwarden Secure Notes with the names listed above." -ForegroundColor Yellow
