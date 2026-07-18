@@ -1,8 +1,9 @@
 using namespace System.Management.Automation
 using namespace System.Management.Automation.Language
 
-Import-Module PSReadLine -ErrorAction SilentlyContinue
 if (Get-Command Set-PSReadLineOption -ErrorAction SilentlyContinue) {
+    # Set EditMode Windows first to ensure all subsequent registrations target the correct keymap
+    Set-PSReadLineOption -EditMode Windows
 
     # Searching for commands with up/down arrow is really handy.
     Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
@@ -539,7 +540,6 @@ if (Get-Command Set-PSReadLineOption -ErrorAction SilentlyContinue) {
 
     Set-PSReadLineOption -PredictionSource History
     Set-PSReadLineOption -PredictionViewStyle ListView
-    Set-PSReadLineOption -EditMode Windows
 
     # dotnet build macro
     Set-PSReadLineKeyHandler -Key Ctrl+Shift+b `

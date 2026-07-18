@@ -12,7 +12,6 @@ if (Test-Path -Path $ProfileDir) {
             Write-Warning "Failed to load profile module: $($Script.Name). Error: $($_.Exception.Message)"
         }
     }
-
 } else {
     Write-Warning "Profile directory not found at: $ProfileDir"
 }
