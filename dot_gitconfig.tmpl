@@ -10,3 +10,5 @@
 [alias]
   acp = "! acp() { git add . && git commit -am \"$1\" && git push ; } ; acp"
   acnvp = "! acnvp() { git add . && git commit --no-verify -am \"$1\" && git push ; } ; acnvp"
+[submodule]
+	recurse = true
