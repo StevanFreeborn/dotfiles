@@ -1,6 +1,6 @@
 {
   "$schema": "https://aka.ms/winget-packages.schema.2.0.json",
-  "CreationDate": "2026-07-07",
+  "CreationDate": "2026-07-19T00:00:00Z",
   "Sources": [
     {
       "Packages": [
@@ -49,6 +49,7 @@
         { "PackageIdentifier": "VideoLAN.VLC" },
         { "PackageIdentifier": "JetBrains.WebStorm" },
         { "PackageIdentifier": "WinSCP.WinSCP" },
+        { "PackageIdentifier": "Streamlink.Streamlink" },
         { "PackageIdentifier": "ajeetdsouza.zoxide" },
         { "PackageIdentifier": "Canonical.Ubuntu" }
       ],
