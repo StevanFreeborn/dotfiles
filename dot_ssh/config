@@ -34,3 +34,8 @@ Host gitea.freeborn.cloud
      User              		git
      Port              		2222
      IdentityFile      		~/.ssh/gitea.freeborn.cloud
+
+Host github.com
+     HostName 	       		github.com
+     User     	       		git
+     IdentityFile      		~/.ssh/id_ed25519
