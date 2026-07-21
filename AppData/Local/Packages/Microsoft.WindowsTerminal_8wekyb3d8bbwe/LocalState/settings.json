@@ -18,6 +18,15 @@
         {
             "command": 
             {
+                "action": "splitPane",
+                "split": "auto",
+                "splitMode": "duplicate"
+            },
+            "id": "User.splitPane.A6751878"
+        },
+        {
+            "command": 
+            {
                 "action": "resizePane",
                 "direction": "left"
             },
@@ -30,11 +39,10 @@
         {
             "command": 
             {
-                "action": "splitPane",
-                "split": "auto",
-                "splitMode": "duplicate"
+                "action": "moveFocus",
+                "direction": "left"
             },
-            "id": "User.splitPane.A6751878"
+            "id": "User.moveFocus.left"
         },
         {
             "command": "toggleFocusMode",
@@ -44,17 +52,17 @@
             "command": 
             {
                 "action": "moveFocus",
-                "direction": "left"
+                "direction": "down"
             },
-            "id": "User.moveFocus.left"
+            "id": "User.moveFocus.down"
         },
         {
             "command": 
             {
-                "action": "moveFocus",
-                "direction": "down"
+                "action": "resizePane",
+                "direction": "right"
             },
-            "id": "User.moveFocus.down"
+            "id": "User.resizePane.right"
         },
         {
             "command": 
@@ -75,18 +83,18 @@
         {
             "command": 
             {
-                "action": "resizePane",
-                "direction": "right"
-            },
-            "id": "User.resizePane.right"
-        },
-        {
-            "command": 
-            {
                 "action": "moveFocus",
                 "direction": "right"
             },
             "id": "User.moveFocus.right"
+        },
+        {
+            "command": 
+            {
+                "action": "resizePane",
+                "direction": "down"
+            },
+            "id": "User.resizePane.down"
         },
         {
             "command": 
@@ -99,14 +107,6 @@
         {
             "command": "closePane",
             "id": "User.closePane"
-        },
-        {
-            "command": 
-            {
-                "action": "resizePane",
-                "direction": "down"
-            },
-            "id": "User.resizePane.down"
         },
         {
             "command": 
@@ -127,28 +127,28 @@
     "keybindings": 
     [
         {
-            "id": "User.copy.644BA8F2",
-            "keys": "ctrl+c"
-        },
-        {
             "id": "Terminal.ToggleFocusMode",
             "keys": "alt+z"
         },
         {
-            "id": "User.paste",
-            "keys": "ctrl+v"
+            "id": "User.copy.644BA8F2",
+            "keys": "ctrl+c"
         },
         {
             "id": "User.find",
             "keys": "ctrl+shift+f"
         },
         {
-            "id": "User.splitPane.A6751878",
-            "keys": "alt+shift+d"
+            "id": "User.paste",
+            "keys": "ctrl+v"
         },
         {
             "id": "User.moveFocus.up",
             "keys": "alt+k"
+        },
+        {
+            "id": "User.splitPane.A6751878",
+            "keys": "alt+shift+d"
         },
         {
             "id": "User.moveFocus.left",
@@ -231,7 +231,8 @@
                 "name": "PowerShell",
                 "opacity": 100,
                 "padding": "7",
-                "source": "Windows.Terminal.PowershellCore"
+                "source": "Windows.Terminal.PowershellCore",
+                "tabTitle": "terminal"
             },
             {
                 "colorScheme": "One Half Dark",
@@ -271,6 +272,7 @@
         ]
     },
     "schemes": [],
+    "searchWebDefaultQueryUrl": "https://www.google.com/search?q=%22%s%22",
     "themes": [],
     "useAcrylicInTabRow": true
 }
