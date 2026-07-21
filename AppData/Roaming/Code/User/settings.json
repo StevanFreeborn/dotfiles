@@ -16,7 +16,6 @@
   "workbench.startupEditor": "none",
   "window.openWithoutArgumentsInNewWindow": "off",
   "javascript.updateImportsOnFileMove.enabled": "always",
-  "workbench.colorTheme": "Lavender Dimmed",
   "terminal.integrated.profiles.windows": {
     "PowerShell": {
       "source": "PowerShell",
@@ -375,5 +374,6 @@
   "gitlens.ai.model": "vscode",
   "gitlens.ai.vscode.model": "copilot:gpt-4.1",
   "githubPullRequests.createOnPublishBranch": "never",
-  "chat.disableAIFeatures": true
+  "chat.disableAIFeatures": true,
+  "workbench.colorTheme": "Lavender Dimmed"
 }

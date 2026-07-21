@@ -16,6 +16,14 @@
             "id": "User.paste"
         },
         {
+            "command": 
+            {
+                "action": "resizePane",
+                "direction": "left"
+            },
+            "id": "User.resizePane.left"
+        },
+        {
             "command": "find",
             "id": "User.find"
         },
@@ -28,9 +36,89 @@
             },
             "id": "User.splitPane.A6751878"
         },
-        { 
-            "command": "toggleFocusMode", 
-            "id": "Terminal.ToggleFocusMode" 
+        {
+            "command": "toggleFocusMode",
+            "id": "Terminal.ToggleFocusMode"
+        },
+        {
+            "command": 
+            {
+                "action": "moveFocus",
+                "direction": "left"
+            },
+            "id": "User.moveFocus.left"
+        },
+        {
+            "command": 
+            {
+                "action": "moveFocus",
+                "direction": "down"
+            },
+            "id": "User.moveFocus.down"
+        },
+        {
+            "command": 
+            {
+                "action": "moveFocus",
+                "direction": "up"
+            },
+            "id": "User.moveFocus.up"
+        },
+        {
+            "command": 
+            {
+                "action": "splitPane",
+                "split": "right"
+            },
+            "id": "User.splitPane.right"
+        },
+        {
+            "command": 
+            {
+                "action": "resizePane",
+                "direction": "right"
+            },
+            "id": "User.resizePane.right"
+        },
+        {
+            "command": 
+            {
+                "action": "moveFocus",
+                "direction": "right"
+            },
+            "id": "User.moveFocus.right"
+        },
+        {
+            "command": 
+            {
+                "action": "splitPane",
+                "split": "down"
+            },
+            "id": "User.splitPane.down"
+        },
+        {
+            "command": "closePane",
+            "id": "User.closePane"
+        },
+        {
+            "command": 
+            {
+                "action": "resizePane",
+                "direction": "down"
+            },
+            "id": "User.resizePane.down"
+        },
+        {
+            "command": 
+            {
+                "action": "resizePane",
+                "direction": "up"
+            },
+            "id": "User.resizePane.up"
+        },
+        {
+            "command": "togglePaneZoom",
+            "id": "User.togglePaneZoom"
         }
     ],
     "copyFormatting": "none",
@@ -41,6 +129,10 @@
         {
             "id": "User.copy.644BA8F2",
             "keys": "ctrl+c"
+        },
+        {
+            "id": "Terminal.ToggleFocusMode",
+            "keys": "alt+z"
         },
         {
             "id": "User.paste",
@@ -55,8 +147,52 @@
             "keys": "alt+shift+d"
         },
         {
-            "id": "Terminal.ToggleFocusMode",
-            "keys": "alt+z"
+            "id": "User.moveFocus.up",
+            "keys": "alt+k"
+        },
+        {
+            "id": "User.moveFocus.left",
+            "keys": "alt+h"
+        },
+        {
+            "id": "User.moveFocus.down",
+            "keys": "alt+j"
+        },
+        {
+            "id": "User.moveFocus.right",
+            "keys": "alt+l"
+        },
+        {
+            "id": "User.splitPane.right",
+            "keys": "alt+shift+plus"
+        },
+        {
+            "id": "User.splitPane.down",
+            "keys": "alt+shift+minus"
+        },
+        {
+            "id": "User.resizePane.left",
+            "keys": "ctrl+alt+left"
+        },
+        {
+            "id": "User.resizePane.down",
+            "keys": "ctrl+alt+down"
+        },
+        {
+            "id": "User.resizePane.up",
+            "keys": "ctrl+alt+up"
+        },
+        {
+            "id": "User.resizePane.right",
+            "keys": "ctrl+alt+right"
+        },
+        {
+            "id": "User.togglePaneZoom",
+            "keys": "alt+shift+enter"
+        },
+        {
+            "id": "User.closePane",
+            "keys": "ctrl+shift+w"
         }
     ],
     "newTabMenu": 
@@ -91,6 +227,7 @@
                 },
                 "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
                 "hidden": false,
+                "icon": "\u2328\ufe0f",
                 "name": "PowerShell",
                 "opacity": 100,
                 "padding": "7",
@@ -112,6 +249,24 @@
                 "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
                 "hidden": false,
                 "name": "Command Prompt"
+            },
+            {
+                "bellStyle": "none",
+                "colorScheme": "One Half Dark",
+                "commandline": "wt -p \\\"PowerShell\\\" ; split-pane -V -s 0.25 -p \\\"PowerShell\\\" ; split-pane -H -s 0.86 -p \\\"PowerShell\\\"\"",
+                "cursorShape": "filledBox",
+                "font": 
+                {
+                    "face": "CaskaydiaCove Nerd Font Mono"
+                },
+                "guid": "{f2f07d74-2af6-495f-b5b9-a2942e096376}",
+                "hidden": false,
+                "icon": "\ud83d\udcf9",
+                "name": "Stream",
+                "opacity": 100,
+                "padding": "7",
+                "startingDirectory": "%USERPROFILE%",
+                "tabTitle": " "
             }
         ]
     },
