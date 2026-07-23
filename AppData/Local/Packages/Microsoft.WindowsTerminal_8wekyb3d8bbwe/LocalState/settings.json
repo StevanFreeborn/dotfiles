@@ -1,278 +1,261 @@
 {
-    "$help": "https://aka.ms/terminal-documentation",
-    "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions": 
-    [
-        {
-            "command": 
-            {
-                "action": "copy",
-                "singleLine": false
-            },
-            "id": "User.copy.644BA8F2"
-        },
-        {
-            "command": "paste",
-            "id": "User.paste"
-        },
-        {
-            "command": 
-            {
-                "action": "splitPane",
-                "split": "auto",
-                "splitMode": "duplicate"
-            },
-            "id": "User.splitPane.A6751878"
-        },
-        {
-            "command": 
-            {
-                "action": "resizePane",
-                "direction": "left"
-            },
-            "id": "User.resizePane.left"
-        },
-        {
-            "command": "find",
-            "id": "User.find"
-        },
-        {
-            "command": 
-            {
-                "action": "moveFocus",
-                "direction": "left"
-            },
-            "id": "User.moveFocus.left"
-        },
-        {
-            "command": "toggleFocusMode",
-            "id": "Terminal.ToggleFocusMode"
-        },
-        {
-            "command": 
-            {
-                "action": "moveFocus",
-                "direction": "down"
-            },
-            "id": "User.moveFocus.down"
-        },
-        {
-            "command": 
-            {
-                "action": "resizePane",
-                "direction": "right"
-            },
-            "id": "User.resizePane.right"
-        },
-        {
-            "command": 
-            {
-                "action": "moveFocus",
-                "direction": "up"
-            },
-            "id": "User.moveFocus.up"
-        },
-        {
-            "command": 
-            {
-                "action": "splitPane",
-                "split": "right"
-            },
-            "id": "User.splitPane.right"
-        },
-        {
-            "command": 
-            {
-                "action": "moveFocus",
-                "direction": "right"
-            },
-            "id": "User.moveFocus.right"
-        },
-        {
-            "command": 
-            {
-                "action": "resizePane",
-                "direction": "down"
-            },
-            "id": "User.resizePane.down"
-        },
-        {
-            "command": 
-            {
-                "action": "splitPane",
-                "split": "down"
-            },
-            "id": "User.splitPane.down"
-        },
-        {
-            "command": "closePane",
-            "id": "User.closePane"
-        },
-        {
-            "command": 
-            {
-                "action": "resizePane",
-                "direction": "up"
-            },
-            "id": "User.resizePane.up"
-        },
-        {
-            "command": "togglePaneZoom",
-            "id": "User.togglePaneZoom"
-        }
-    ],
-    "copyFormatting": "none",
-    "copyOnSelect": false,
-    "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
-    "keybindings": 
-    [
-        {
-            "id": "Terminal.ToggleFocusMode",
-            "keys": "alt+z"
-        },
-        {
-            "id": "User.copy.644BA8F2",
-            "keys": "ctrl+c"
-        },
-        {
-            "id": "User.find",
-            "keys": "ctrl+shift+f"
-        },
-        {
-            "id": "User.paste",
-            "keys": "ctrl+v"
-        },
-        {
-            "id": "User.moveFocus.up",
-            "keys": "alt+k"
-        },
-        {
-            "id": "User.splitPane.A6751878",
-            "keys": "alt+shift+d"
-        },
-        {
-            "id": "User.moveFocus.left",
-            "keys": "alt+h"
-        },
-        {
-            "id": "User.moveFocus.down",
-            "keys": "alt+j"
-        },
-        {
-            "id": "User.moveFocus.right",
-            "keys": "alt+l"
-        },
-        {
-            "id": "User.splitPane.right",
-            "keys": "alt+shift+plus"
-        },
-        {
-            "id": "User.splitPane.down",
-            "keys": "alt+shift+minus"
-        },
-        {
-            "id": "User.resizePane.left",
-            "keys": "ctrl+alt+left"
-        },
-        {
-            "id": "User.resizePane.down",
-            "keys": "ctrl+alt+down"
-        },
-        {
-            "id": "User.resizePane.up",
-            "keys": "ctrl+alt+up"
-        },
-        {
-            "id": "User.resizePane.right",
-            "keys": "ctrl+alt+right"
-        },
-        {
-            "id": "User.togglePaneZoom",
-            "keys": "alt+shift+enter"
-        },
-        {
-            "id": "User.closePane",
-            "keys": "ctrl+shift+w"
-        }
-    ],
-    "newTabMenu": 
-    [
-        {
-            "type": "remainingProfiles"
-        }
-    ],
-    "profiles": 
+  "$help": "https://aka.ms/terminal-documentation",
+  "$schema": "https://aka.ms/terminal-profiles-schema",
+  "actions": [
     {
-        "defaults": 
-        {
-            "bellStyle": "none",
-            "colorScheme": "One Half Dark",
-            "font": 
-            {
-                "face": "CaskaydiaCove Nerd Font Mono"
-            },
-            "intenseTextStyle": "all",
-            "useAcrylic": true
-        },
-        "list": 
-        [
-            {
-                "bellStyle": "none",
-                "colorScheme": "One Half Dark",
-                "commandline": "\"C:\\Users\\sfree\\AppData\\Local\\Microsoft\\WindowsApps\\pwsh.exe\" -NoLogo",
-                "cursorShape": "filledBox",
-                "font": 
-                {
-                    "face": "CaskaydiaCove Nerd Font Mono"
-                },
-                "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
-                "hidden": false,
-                "icon": "\u2328\ufe0f",
-                "name": "PowerShell",
-                "opacity": 100,
-                "padding": "7",
-                "source": "Windows.Terminal.PowershellCore",
-                "tabTitle": "terminal"
-            },
-            {
-                "colorScheme": "One Half Dark",
-                "commandline": "wsl.exe",
-                "cursorShape": "bar",
-                "guid": "{51855cb2-8cce-5362-8f54-464b92b32386}",
-                "hidden": false,
-                "icon": "ms-appx:///ProfileIcons/{9acb9455-ca41-5af7-950f-6bca1bc9722f}.png",
-                "name": "Ubuntu",
-                "source": "CanonicalGroupLimited.Ubuntu_79rhkp1fndgsc",
-                "startingDirectory": "~"
-            },
-            {
-                "commandline": "%SystemRoot%\\System32\\cmd.exe",
-                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
-                "hidden": false,
-                "name": "Command Prompt"
-            },
-            {
-                "bellStyle": "none",
-                "colorScheme": "One Half Dark",
-                "commandline": "wt -p \\\"PowerShell\\\" ; split-pane -V -s 0.25 -p \\\"PowerShell\\\" ; split-pane -H -s 0.86 -p \\\"PowerShell\\\"\"",
-                "cursorShape": "filledBox",
-                "font": 
-                {
-                    "face": "CaskaydiaCove Nerd Font Mono"
-                },
-                "guid": "{f2f07d74-2af6-495f-b5b9-a2942e096376}",
-                "hidden": false,
-                "icon": "\ud83d\udcf9",
-                "name": "Stream",
-                "opacity": 100,
-                "padding": "7",
-                "startingDirectory": "%USERPROFILE%",
-                "tabTitle": " "
-            }
-        ]
+      "command": {
+        "action": "copy",
+        "singleLine": false
+      },
+      "id": "User.copy.644BA8F2"
     },
-    "schemes": [],
-    "searchWebDefaultQueryUrl": "https://www.google.com/search?q=%22%s%22",
-    "themes": [],
-    "useAcrylicInTabRow": true
+    {
+      "command": "paste",
+      "id": "User.paste"
+    },
+    {
+      "command": {
+        "action": "splitPane",
+        "split": "auto",
+        "splitMode": "duplicate"
+      },
+      "id": "User.splitPane.A6751878"
+    },
+    {
+      "command": {
+        "action": "resizePane",
+        "direction": "left"
+      },
+      "id": "User.resizePane.left"
+    },
+    {
+      "command": "find",
+      "id": "User.find"
+    },
+    {
+      "command": {
+        "action": "moveFocus",
+        "direction": "left"
+      },
+      "id": "User.moveFocus.left"
+    },
+    {
+      "command": "toggleFocusMode",
+      "id": "Terminal.ToggleFocusMode"
+    },
+    {
+      "command": {
+        "action": "moveFocus",
+        "direction": "down"
+      },
+      "id": "User.moveFocus.down"
+    },
+    {
+      "command": {
+        "action": "resizePane",
+        "direction": "right"
+      },
+      "id": "User.resizePane.right"
+    },
+    {
+      "command": {
+        "action": "moveFocus",
+        "direction": "up"
+      },
+      "id": "User.moveFocus.up"
+    },
+    {
+      "command": {
+        "action": "splitPane",
+        "split": "right"
+      },
+      "id": "User.splitPane.right"
+    },
+    {
+      "command": {
+        "action": "moveFocus",
+        "direction": "right"
+      },
+      "id": "User.moveFocus.right"
+    },
+    {
+      "command": {
+        "action": "resizePane",
+        "direction": "down"
+      },
+      "id": "User.resizePane.down"
+    },
+    {
+      "command": {
+        "action": "splitPane",
+        "split": "down"
+      },
+      "id": "User.splitPane.down"
+    },
+    {
+      "command": "closePane",
+      "id": "User.closePane"
+    },
+    {
+      "command": {
+        "action": "resizePane",
+        "direction": "up"
+      },
+      "id": "User.resizePane.up"
+    },
+    {
+      "command": "togglePaneZoom",
+      "id": "User.togglePaneZoom"
+    }
+  ],
+  "copyFormatting": "none",
+  "copyOnSelect": false,
+  "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+  "keybindings": [
+    {
+      "id": "Terminal.ToggleFocusMode",
+      "keys": "alt+z"
+    },
+    {
+      "id": "User.copy.644BA8F2",
+      "keys": "ctrl+c"
+    },
+    {
+      "id": "User.find",
+      "keys": "ctrl+shift+f"
+    },
+    {
+      "id": "User.paste",
+      "keys": "ctrl+v"
+    },
+    {
+      "id": "User.moveFocus.up",
+      "keys": "alt+k"
+    },
+    {
+      "id": "User.splitPane.A6751878",
+      "keys": "alt+shift+d"
+    },
+    {
+      "id": "User.moveFocus.left",
+      "keys": "alt+h"
+    },
+    {
+      "id": "User.moveFocus.down",
+      "keys": "alt+j"
+    },
+    {
+      "id": "User.moveFocus.right",
+      "keys": "alt+l"
+    },
+    {
+      "id": "User.splitPane.right",
+      "keys": "alt+shift+plus"
+    },
+    {
+      "id": "User.splitPane.down",
+      "keys": "alt+shift+minus"
+    },
+    {
+      "id": "User.resizePane.left",
+      "keys": "ctrl+alt+left"
+    },
+    {
+      "id": "User.resizePane.down",
+      "keys": "ctrl+alt+down"
+    },
+    {
+      "id": "User.resizePane.up",
+      "keys": "ctrl+alt+up"
+    },
+    {
+      "id": "User.resizePane.right",
+      "keys": "ctrl+alt+right"
+    },
+    {
+      "id": "User.togglePaneZoom",
+      "keys": "alt+shift+enter"
+    },
+    {
+      "id": "User.closePane",
+      "keys": "ctrl+shift+w"
+    }
+  ],
+  "newTabMenu": [
+    {
+      "type": "remainingProfiles"
+    }
+  ],
+  "profiles": {
+    "defaults": {
+      "bellStyle": "none",
+      "colorScheme": "One Half Dark",
+      "font": {
+        "face": "CaskaydiaCove Nerd Font Mono"
+      },
+      "intenseTextStyle": "all",
+      "useAcrylic": true,
+      "unfocusedAppearance": {
+        "opacity": 35
+      }
+    },
+    "list": [
+      {
+        "bellStyle": "none",
+        "colorScheme": "One Half Dark",
+        "commandline": "\"C:\\Users\\sfree\\AppData\\Local\\Microsoft\\WindowsApps\\pwsh.exe\" -NoLogo",
+        "cursorShape": "filledBox",
+        "font": {
+          "face": "CaskaydiaCove Nerd Font Mono"
+        },
+        "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+        "hidden": false,
+        "icon": "\u2328\ufe0f",
+        "name": "PowerShell",
+        "opacity": 100,
+        "padding": "7",
+        "source": "Windows.Terminal.PowershellCore",
+        "tabTitle": "terminal"
+      },
+      {
+        "colorScheme": "One Half Dark",
+        "commandline": "wsl.exe",
+        "cursorShape": "bar",
+        "guid": "{51855cb2-8cce-5362-8f54-464b92b32386}",
+        "hidden": false,
+        "icon": "ms-appx:///ProfileIcons/{9acb9455-ca41-5af7-950f-6bca1bc9722f}.png",
+        "name": "Ubuntu",
+        "source": "CanonicalGroupLimited.Ubuntu_79rhkp1fndgsc",
+        "startingDirectory": "~"
+      },
+      {
+        "commandline": "%SystemRoot%\\System32\\cmd.exe",
+        "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+        "hidden": false,
+        "name": "Command Prompt"
+      },
+      {
+        "bellStyle": "none",
+        "colorScheme": "One Half Dark",
+        "commandline": "wt -p \\\"PowerShell\\\" ; split-pane -V -s 0.25 -p \\\"PowerShell\\\" ; split-pane -H -s 0.86 -p \\\"PowerShell\\\"\"",
+        "cursorShape": "filledBox",
+        "font": {
+          "face": "CaskaydiaCove Nerd Font Mono"
+        },
+        "guid": "{f2f07d74-2af6-495f-b5b9-a2942e096376}",
+        "hidden": false,
+        "icon": "\ud83d\udcf9",
+        "name": "Stream",
+        "opacity": 100,
+        "padding": "7",
+        "startingDirectory": "%USERPROFILE%",
+        "tabTitle": " "
+      }
+    ]
+  },
+  "schemes": [],
+  "searchWebDefaultQueryUrl": "https://www.google.com/search?q=%22%s%22",
+  "tabWidthMode": "equal",
+  "themes": [],
+  "useAcrylicInTabRow": true
 }
